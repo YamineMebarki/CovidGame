@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mot de passe incorrect{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 title text-center mt-5 mb-5">
+                <h1 class="text-danger mt-5 mb-5">Votre mot de passe est inccorect</h1>
+                <h2 class="text-danger mt-5 mb-5">: (</h2>
+                <div class="mt-5 mb-5">
+                    <p>Si vous avez oublié votre mot de passe, vous pouvez en demander un nouveau dans la rubrique mot de passe oublié ? Lors de votre connexion. </p>
+                </div>
+                <div class="mt-5 mb-5">
+                    <a href="{{ path('old_pass', {'id': app.user.id}) }}"><button type="button" class="btn btn-primary" >Retour</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

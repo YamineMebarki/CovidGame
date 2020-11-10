@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+{% block title %}Connexion!{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mt-5">
+                <h1 class="mt-5 mb-5 font-title">Connexion</h1>
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" required autofocus>
+                    <label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" required>
+                    <div class="form-group">
+                        <a class="show-pass"><i class="far fa-eye-slash eyes mt-3" id="eyesOn"></i></a>
+                        <a class="show-pass"><i class="far fa-eye eyes mt-3" id="eyesOff"></i></a>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    {#
+                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
+                    #}
+                    <button class="btn btn-lg btn-primary mt-5 mb-5" type="submit">Se connecter</button>
+                </form>
+                <a href="{{ path('pass_lost') }}"  >
+                    <small class="text-black-50">Mot de passe oublié ?</small>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        document.getElementById('eyesOn').style.display = 'block';
+        document.getElementById('eyesOff').style.display = 'none';
+        $(".show-pass").click(function (e) {
+            e.preventDefault();
+            var type = $("#inputPassword").attr('type');
+            switch (type) {
+                case 'text':
+                {
+                    $("#inputPassword").attr('type', 'password');
+                    document.getElementById('eyesOff').style.display = 'none';
+                    document.getElementById('eyesOn').style.display = 'block';
+                    return;
+                }
+                case 'password':
+                {
+                    $("#inputPassword").attr('type', 'text');
+                    document.getElementById('eyesOn').style.display = 'none';
+                    document.getElementById('eyesOff').style.display = 'block';
+                    return;
+                }
+            }
+        });
+    </script>
+{% endblock %}

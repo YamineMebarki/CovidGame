@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Erreur{% endblock %}
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-5 title text-center mb-5">
+                    <h1 class="text-danger mt-5 mb-5">Désoler vos mot de passe ne corresponde pas, veuillez réessayer !</h1>
+                    <h2 class="mt-5 mb-5 text-danger">: (</h2>
+                    <a href="{{ path('new_pass', {'id':app.user.id}) }}" ><button type="button" class="btn btn-success mt-5 mb-5">Réssayer</button></a>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

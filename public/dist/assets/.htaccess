@@ -1,0 +1,29 @@
+#réecriture d'url https
+ Options +FollowSymlinks
+RewriteEngine On
+RewriteBase /
+RewriteCond %{SERVER_PORT} 80
+#RewriteRule ^(.*)$ https://www.lacapsulememorial.fr/$1 [R,L,C]
+# Redirection erreur-404 :
+ErrorDocument 404 https://www.covidgame.fr/404.html
+# Blocage de la visibilité du fichier paypal.php
+<Files config.php>
+order allow,deny
+deny from all
+</Files>
+# Protéger .htaccess
+<Files ~ "^.*\.([Hh][Tt][AaPp])">
+order allow,deny
+deny from all
+satisfy all
+</Files>
+# Interdiction de visualisation des repertoires du site :
+Options All -Indexes
+# Masquer les informations relatives au serveur :
+#ServerSignature Off
+# Rediriger les internautes vers une page de maintenance - Lorsque vous faîtes des modifications
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !/maintenance.php$
+# Defini IP autoriser à acceder au site
+RewriteCond %{REMOTE_ADDR} 192.168.1.28
+RewriteRule $ /maintenance.php [R=302,L]

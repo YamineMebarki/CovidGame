@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Nouveau mot de passe{% endblock %}
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-3 mb-5 text-center">
+                    <h1 class="text-success title mb-5 mt-5">Félicitation votre mot de passe a été changé avec success !</h1>
+                    <h2 class="text-success mt-5 mb-5">: )</h2>
+                    <a class="nav-link title" href="{{ path('home', {'id': app.user.id }) }}"><button class="btn btn-primary btn-lg mt-5 mb-5">Accueil</button></a>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

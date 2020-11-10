@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}S'inscrire{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mt-5">
+                <h1 class="mt-5 mb-5 font-title">S'inscrire</h1>
+                {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email, {'label': 'Adresse mail', 'attr': {'placeholder': 'Renseigner une adresse mail', 'class':'mb-3 form-control'}}) }}
+                <h6>Inscription rapide, aprés avoir renseigner votre adresse mail un message contenant votre mot de passe de connexion vous sera envoyer.</h6>
+                <div class="g-recaptcha" data-sitekey="6LdqWuQUAAAAAOv4aJfY8Tri9NAE4yCI_b-1tcsL" ></div>
+                <button type="submit" class="btn btn-lg btn-success mt-5 mb-5">C'est parti</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mot de passe oublié{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5 title text-success text-center mb-5">
+                <h1 class="mt-5">Un nouveau mot de passe vient de vous étre envoyé sur votre adresse mail</h1>
+                <small class="mb-5">si vous souhaitez le modifier rendez-vous dans les paramètre de votre profil </small>
+                <div class="mt-5 mb-5">
+                    <a href="{{ path('app_login') }}"><button class="btn btn-primary mb-5 mt-5">Se connecter</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

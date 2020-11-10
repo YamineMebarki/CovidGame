@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Félicitation{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5 text-center title">
+                <h1 class="text-success mt-5 mb-5 font">Bravo ! </h1>
+                <h2 class="font">Vous venez de franchir la première étape.</h2>
+                <h3 class="mt-2 font mb-5 text-danger">Un email contenant vos identifiants de connexion vient de vous être envoyer, à l'adresse renseigner !</h3>
+                <a href="{{ path('app_login') }}"><button class="btn btn-success btn-lg mt-3 mb-5">Suivant</button></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

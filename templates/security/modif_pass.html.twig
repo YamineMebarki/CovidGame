@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier mot de passe{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12  mt-4">
+                <a href="{{ path('home', {'id': app.user.id}) }}"><button class="btn btn-primary">Retour</button></a>
+                <h1 class="mt-5 mb-5 title text-center">Modifier votre mot de passe</h1>
+                <form action="" method="post" class="text-center">
+                    <div class="form-group mt-5 mb-5">
+                        <label for="" class="mt-5">Entrer votre mot de passe actuel :</label>
+                        <input type="password" class="form-control" name="old_pass" id="old_pass" value="">
+                    </div>
+                    <div class="form-group">
+                        <a class="show-pass"><i class="far fa-eye-slash eyes mt-3" id="eyesOn"></i></a>
+                        <a class="show-pass"><i class="far fa-eye eyes mt-3" id="eyesOff"></i></a>
+                    </div>
+                    <a href="{{ path('old_pass', {'id':app.user.id}) }}" ><button type="submit" class="btn btn-success btn-lg mt-5 mb-5" name="new_pass" value="new_pass">Valider</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        document.getElementById('eyesOn').style.display = 'block';
+        document.getElementById('eyesOff').style.display = 'none';
+        $(".show-pass").click(function (e) {
+            e.preventDefault();
+            var type = $("#old_pass").attr('type');
+            switch (type) {
+                case 'text':
+                {
+                    $("#old_pass").attr('type', 'password');
+                    document.getElementById('eyesOff').style.display = 'none';
+                    document.getElementById('eyesOn').style.display = 'block';
+                    return;
+                }
+                case 'password':
+                {
+                    $("#old_pass").attr('type', 'text');
+                    document.getElementById('eyesOn').style.display = 'none';
+                    document.getElementById('eyesOff').style.display = 'block';
+                    return;
+                }
+            }
+        });
+    </script>
+{% endblock %}

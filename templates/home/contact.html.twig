@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Contact{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center font-title mt-5">Une Question?</h1>
+                <h6 class="text-center font-title">Un Remarque?</h6>
+                <h6 class="text-center title mb-4">N'hésitez pas, nous nous ferons un plaisir de vous répondre dans les meilleurs délais.</h6>
+                <div class="jumbotron">
+                    <form action="" method="post" class="mt-4">
+                        <div class="form-group">
+                            <label for="name">Nom</label>
+                            <input type="text" name="name" class="form-control" id="name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" class="form-control" id="email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="msg">Message</label>
+                            <textarea name="msg"  id="msg" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="g-recaptcha" data-sitekey="6LdqWuQUAAAAAOv4aJfY8Tri9NAE4yCI_b-1tcsL" ></div>
+                        <!-- 6Lch-_8UAAAAADH3KFmRQQ3fKyw4zLGNlbS13Oz9 -->
+                        <input type="submit" class="btn btn-success mt-3" value="Envoyer" name="submitForm" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

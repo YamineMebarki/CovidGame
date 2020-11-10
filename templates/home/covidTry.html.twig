@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}CovidTry{% endblock %}
+{% block body %}
+    <div class="mt-5 mb-5">
+        <h1 class="font"><b> {{ user }}</b> avant de te lancer vérifions tes informations,</h1>
+        <h2 class="font mb-5 mt-3">d'aprés tes dires tu as {{ age }} ans</h2>
+            <a href="{{ path('gameTry') }}"><button class="btn btn-success btn-lg mb-5" >Confirmer</button></a>
+    </div>
+    <form action="" method="post">
+        <button class="btn btn-danger mb-5" style="margin-right: 50%;" name="exitGame" value="false">Quitter</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}GameTry{% endblock %}
+{% block javascript %}
+    <script>
+        $(window).load(function()
+        {
+            $('#tryModal').modal('show');
+        });
+    </script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{% endblock %}
+{% block body %}
+    <hr class="mt-5 mb-5"/>
+    <div class="container mt-5 mb-5">
+        <button type="button" class="btn btn-info btn-lg mt-5 mb-5" data-toggle="modal" data-target="#tryModal">Ouvrir</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="tryModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class=" h2 modal-title"><span class="font">Bienvenue <b>{{ user }}</b></span></h1>
+                        <button type="button" class="close text-danger" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        {% if age <12 %}
+                            <p>6++ tu as {{ age }}</p>
+                        {% elseif age >=12 and age <18 %}
+                            <p>12++ tu as {{ age }}</p>
+                        {% else %}
+                            <p>18++ tu as {{ age }}</p>
+                        {% endif %}
+                        <div>
+                            <a href="{{ path('storyTryGame') }}"><button class="btn btn-primary btn-lg">Commencer</button></a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="" method="post">
+                            <button class="btn btn-danger mb-5" style="margin-right: 50%;" name="exitGame" value="false">Quitter</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ENdModal -->
+    </div>
+    <div class="mt-5 mb-5">
+        <form action="" method="post">
+            <button class="btn btn-danger mt-5 mb-5" style="margin-right: 50%;" name="exitGame" value="false">Quitter</button>
+        </form>
+    </div>
+    <hr class="mt-5 mb-5"/>
+{% endblock %}

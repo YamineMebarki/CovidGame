@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}créer profil{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12  mt-5">
+                <div class="text-center">
+                    <h3 class="font-title">Afin de pouvoir utilisé nos services veuillez créer votre profil</h3>
+                    <h5 class="font text-success">Ce jeu Utilise vos informations afin de pouvoir vous proposer une experience adaptée à vos caractéristiques.</h5>
+                        <h6 class="mt-2 text-danger"><b>Sachez que toutes les informations renseigner ici servirons aussi à nous permettre de vous identifiez en cas d'intervention sur votre compte pour ainsi confirmer votre identité !</b></h6>
+                    {{ form_start(UserForm) }}
+                    <h4 class="font">Veuillez renseigner :</h4>
+                    <div class="form-group">
+                        {{ form_row(UserForm.lastname, {'label': 'Votre Nom :', 'attr': {'class': 'form-control', 'placeholder': 'Veuillez entrer votre Nom'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(UserForm.firstname, {'label': 'Votre prénom:', 'attr': {'class': 'form-control', 'placeholder': 'Veuillez entrer votre Prénom'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(UserForm.age, {'label': 'Votre age :', 'attr': {'class': 'form-control', 'placeholder': 'Merci d\'indiquer votre age', 'min': '18', 'max': '100'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(UserForm.city, {'label': 'Votre lieu de résidence :', 'attr': {'class': 'form-control', 'placeholder': 'Veuillez entrer votre adresse , ville, code postal'}}) }}
+                    </div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-success btn-lg mb-5">
+                                Valider
+                        </button>
+                    </div>
+                    {{ form_end(UserForm) }}
+                     <div class="mt-2">
+                            <a href="{{ path('old_pass', {'id': app.user.id}) }}"><button type="button" class="btn btn-warning" >Modifier mon mot de passe</button></a>
+                        </div>
+                    <small class="mb-5">Vous pourrez modifier votre mot de passe plus tard dans vos paramétres</small>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+                                désactiver mon profil
+                            </button>
+                        </div>
+                    <small>Vous pouvez si vou le souhaitez désactiver votre compte</small>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

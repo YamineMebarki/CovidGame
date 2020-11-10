@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="{{ asset('dist/assets/css/style.css') }}" rel="stylesheet" />
+    {% block stylesheets %}{% endblock %}
+    <title>{% block title %}CovidGame!{% endblock %}</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src='//code.jquery.com/jquery-2.2.4.min.js'></script>
+    <script src="{{ asset('dist/assets/js/navScroll.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/scroll.js') }}"></script>
+    <script src="{{ asset('dist/assets/js/all.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    {% block javascript %}{% endblock %}
+    <style>
+        a.nav-link{
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-lg  fixed-top mb-5">
+        <a class="navbar-brand text-black" href="{{ path('home') }}"><i class="fas fa-shield-virus logo"></i><b> Accueil</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if app.user  %}
+                    {% if app.user.state !=  NULL %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle font-title" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                StoryGame
+                            </a>
+                            <div class="dropdown-menu text-black" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item font-title" href="index.php?service_1"><span>Story1</span></a>
+                                <a class="dropdown-item font-title" href="index.php?service_2"><span>Story2</span></a>
+                                <a class="dropdown-item font-title" href="index.php?service_3"><span>Story3</span></a>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                {% if not app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link font-title" href="{{ path('app_register') }}">S'inscrire</a>
+                    </li>
+                {% endif %}
+                {% if not app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link font-title" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                {% endif %}
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link font-title" href="{{ path('app_logout') }}">Se deconnecter</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link font-title" href="{{ path('contact') }}">Contact</a>
+                </li>
+                {% if  app.user and app.user.roles |json_encode() |raw == '["ADMIN","ROLE_USER"]' %}
+                    <li class="nav-item">
+                        <a class="nav-link font-title text-danger" href="{{ path('app_register') }}">Dashboard</a>
+                    </li>
+                {% endif %}
+                {% if not app.user %}
+                    <li class="nav-item font-title">
+                        <a href="{{ path('storyTry') }}" class="nav-link text-warning">Essayer sans inscription</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% if app.user %}
+            <!-- Button trigger modal -->
+            <a data-toggle="modal" data-target="#param">
+                <i class="fas fa-cog " data-toggle='tooltip' data-placement='bottom' title="Paramétres"></i>
+            </a>
+            <div class="mb-3 nav-link">
+                connecter en tant que <span class="text-success"><b>{{ app.user.username }}</b></span>
+            </div>
+        {% endif %}
+    </nav>
+</header>
+{% if app.user %}
+    <!-- Modal Parametre -->
+    <div class="modal fade" id="param" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2> <i class="fas fa-cog " ></i> <span class="gogole-font">Paramètre du profil</span></h2>
+                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mt-2">
+                        <a href="{{ path('old_pass', {'id': app.user.id}) }}"><button type="button" class="btn btn-warning" >Modifier mon mot de passe</button></a>
+                    </div>
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+                            désactiver mon profil
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+<!-- /.navbar -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center mt-5 mb-5">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</div>
+<!-- Scroll -->
+<div class="scroll-top-wrapper" id="scroll"><i class="fas fa-chevron-circle-up"></i></div>
+<!--  EndScroll -->
+<!--  Footer-->
+<footer class="mt-5">
+    <div class="footer1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 widget">
+                    <h3 class="widget-title"><a href="{{ path('contact') }}"> Contact</a></h3>
+                    <div class="widget-body">
+                        <a href="mailto:#"><i class="fas fa-envelope-square"></i> contact@covidgame.fr</a>
+                        <div><a href="https://etablissements.fhf.fr/annuaire/"><i class="fas fa-hospital-symbol"></i> Centre Hospitalier</a></div>
+                    </div>
+                </div>
+                <div class="col-md-3 widget">
+                    <h3 class="widget-title">Suivez nous</h3>
+                    <div class="widget-body">
+                        <p class="follow-me-icons">
+                            <a href="https://www.facebook.com"><i class="fab fa-facebook-square"></i></a>
+                            <a href=""><i class="fab fa-instagram"></i></a>
+                            <a href=""><i class="fab fa-twitter-square"></i></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 widget">
+                    <h3 class="widget-title">À propos :</h3>
+                    <div class="widget-body">
+                        <p>CovidGame  est une manière ludique aussi bien pour les grands et les petits d'apprendre les gestes barriéres face à la crise sanitaire du Coronavirus , il est important de prendre conscience que ces gestes sont la seul barrière efficace contre la propagations du virus, tant que nous n'aurons pas de traitement efficace. </p>
+                        <h5>Prendre soin de soi, c'est prendre soin des autres.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 widget">
+                    <div class="widget-body">
+                        <p class="simplenav">
+                            <a href="{{ path('home') }}">Accueil</a> |
+                            {% if not app.user %}
+                                <a href="{{ path('app_register') }}">S'inscrire</a> |
+                                <a href="{{ path('app_login') }}">Connexion</a> |
+                            {% endif %}
+                            {% if app.user %}
+                                <a href="{{ path('app_logout') }}">Se deconnecter</a> |
+                            {% endif %}
+                            <a href="{{ path('contact') }}">Contact</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 widget">
+                    <div class="widget-body">
+                        <p class="text-right">
+                            Copyright &copy; 2020, <a href="http://www.webarki.fr">Webarki.fr</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- EndFooter -->
+<!--  Cookie  -->
+<div class="cookiewarning text-center">
+    <h3>Bienvenue</h3>
+    <p>En poursuivant votre navigation sur ce site :</p>
+    <p>vous acceptez l'utilisation de cookies pour améliorer et personnaliser votre navigation sur celui-ci.</p>
+    <button type="button" class="btn btn-primary btn-xl" id="cookietrue">Accepter</button>
+    <button type="button" class="btn btn-danger btn-xl" id="removecookie">Refuser</button>
+</div>
+<script>
+    $(document.ready(function () {
+
+    }));
+</script>
+<!-- EndCookie -->
+<script src="{{ asset('dist/assets/js/cookiesBootstrap.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

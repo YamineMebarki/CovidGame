@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Mot de passe oublié{% endblock %}
+    {% block body %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-5  mt-5 mb-5">
+                    <h1 class="title mt-5 mb-5">Demander un nouveau mot de passe</h1>
+                    <form action="" method="post">
+                        <div class="form-group mt-5 mb-5">
+                            <label for="email_pass_lost" class="title mt-5">Adresse mail :</label>
+                            <input type="email" class="form-control mb-5" name="email_pass_lost" placeholder="Veuillez entrer votre adresse mail" required>
+                            <a href="{{ path('pass_lost') }}" ><button type="submit" class="btn btn-success mb-5" name="send" value="new_pass">Confirmer</button></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

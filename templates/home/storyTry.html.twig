@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title %}StoryTry{% endblock %}
+{% block body %}
+    <div class="mt-5 mb-5">
+        <h1 class="font-title">Merci d'essayer la version sans inscription,</h1>
+        <h2 class="font-title mb-3">afin de pouvoir vous proposez une experience personnalisée et adaptée nous aurons besoin de :</h2>
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="pseudo">Votre pseudo :</label>
+                <input type="text" value="" class="form-control" name="pseudo" id="pseudo" required/>
+            </div>
+            <div class="form-group">
+                <label for="age">Votre age : </label>
+                <input type="number" value="" class="form-control" name="age" id="age" min="6" max="99" required/>
+            </div>
+            <button class="btn btn-primary btn-lg" value="true" name="storyTry">Essayer</button>
+        </form>
+    </div>
+{% endblock %}
